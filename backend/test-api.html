@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalQuest API Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #10b981;
+            color: white;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .endpoint {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .endpoint h3 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .method {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 10px;
+        }
+
+        .get {
+            background: #10b981;
+            color: white;
+        }
+
+        .post {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .put {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .url {
+            font-family: 'Courier New', monospace;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .demo {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .demo h3 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        #result {
+            background: #1f2937;
+            color: #10b981;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: pre-wrap;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🚀 CalQuest API</h1>
+        <div class="status">✅ Server Running</div>
+
+        <p style="color: #666; margin-bottom: 30px;">
+            Backend is live at <strong>http://localhost:5000</strong>
+        </p>
+
+        <h2 style="margin: 30px 0 20px 0; color: #333;">📚 Available Endpoints</h2>
+
+        <div class="endpoint">
+            <h3><span class="method get">GET</span> <span class="url">/health</span></h3>
+            <p>Health check - verify server is running</p>
+        </div>
+
+        <div class="endpoint">
+            <h3><span class="method post">POST</span> <span class="url">/api/auth/register</span></h3>
+            <p>Register new user</p>
+        </div>
+
+        <div class="endpoint">
+            <h3><span class="method post">POST</span> <span class="url">/api/auth/login</span></h3>
+            <p>Login user (returns JWT token)</p>
+        </div>
+
+        <div class="endpoint">
+            <h3><span class="method get">GET</span> <span class="url">/api/lessons</span></h3>
+            <p>Get all 30 lessons</p>
+        </div>
+
+        <div class="endpoint">
+            <h3><span class="method get">GET</span> <span class="url">/api/lessons/:id</span></h3>
+            <p>Get single lesson (e.g., /api/lessons/limits_1)</p>
+        </div>
+
+        <div class="endpoint">
+            <h3><span class="method get">GET</span> <span class="url">/api/leaderboard/global</span></h3>
+            <p>Top 100 users by XP</p>
+        </div>
+
+        <div class="demo">
+            <h3>🧪 Quick Test</h3>
+            <p>Click to test the API endpoints:</p>
+            <button onclick="testHealth()">Test Health Check</button>
+            <button onclick="testLessons()">Get All Lessons</button>
+            <button onclick="testLeaderboard()">Get Leaderboard</button>
+            <div id="result"></div>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #e0e7ff; border-radius: 10px;">
+            <h3 style="color: #4338ca; margin-bottom: 10px;">👤 Demo Users</h3>
+            <p><strong>Username:</strong> shyanpaul | <strong>Password:</strong> password123</p>
+            <p><strong>Username:</strong> einstein | <strong>Password:</strong> password123</p>
+            <p><strong>Username:</strong> newton | <strong>Password:</strong> password123</p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:5000';
+
+        async function testHealth() {
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            result.textContent = 'Loading...';
+
+            try {
+                const response = await fetch(`${API_URL}/health`);
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testLessons() {
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            result.textContent = 'Loading...';
+
+            try {
+                const response = await fetch(`${API_URL}/api/lessons`);
+                const data = await response.json();
+                result.textContent = `Found ${data.lessons.length} lessons!\n\n` +
+                    JSON.stringify(data.lessons.slice(0, 3), null, 2) +
+                    '\n\n... and 27 more!';
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+
+        async function testLeaderboard() {
+            const result = document.getElementById('result');
+            result.style.display = 'block';
+            result.textContent = 'Loading...';
+
+            try {
+                const response = await fetch(`${API_URL}/api/leaderboard/global`);
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                result.textContent = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+
+</html>

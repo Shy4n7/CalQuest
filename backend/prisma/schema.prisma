@@ -1,0 +1,84 @@
+// This is your Prisma schema file for CalQuest
+// Learn more: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  username     String   @unique
+  passwordHash String
+  avatar       String?  // Cloudinary URL
+  streak       Int      @default(0)
+  xp           Int      @default(0)
+  level        Int      @default(1)
+  dailyGoal    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Progress tracking (stored as JSON string for SQLite)
+  progress String @default("{\"limits\": 0, \"derivatives\": 0, \"powerRule\": 0, \"integrals\": 0, \"astrophysics\": 0}")
+
+  // Relationships
+  lessons      LessonProgress[]
+  achievements Achievement[]
+  leaderboard  LeaderboardEntry?
+
+  @@index([email])
+  @@index([username])
+  @@index([xp])
+}
+
+model LessonProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  lessonId    String    // "limits_1", "derivatives_2", etc.
+  completed   Boolean   @default(false)
+  score       Float?    // 0-100
+  attempts    Int       @default(0)
+  bestScore   Float?    // lifetime best
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@index([userId])
+  @@index([lessonId])
+  @@index([completed])
+}
+
+model Achievement {
+  id         String   @id @default(cuid())
+  userId     String
+  name       String   // "Streak Master", "Limit Legend"
+  icon       String   // emoji or Cloudinary URL
+  unlockedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([name])
+}
+
+model LeaderboardEntry {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  rank      Int
+  xp        Int
+  level     Int
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([rank])
+  @@index([xp])
+}

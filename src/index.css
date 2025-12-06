@@ -1,0 +1,128 @@
+@import './styles/slider.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS Variables */
+:root {
+  --color-primary: #6B8DD6;
+  --color-secondary: #8B7EC8;
+  --color-accent: #E8A87C;
+  --color-background: #0a0e27;
+  --color-surface: #1a1535;
+  --color-surface-light: #2a2545;
+  --color-text-primary: #E8E6F0;
+  --color-text-secondary: #A8A4B8;
+  --color-success: #7EC8A3;
+  --color-error: #E88B8B;
+  --color-glow: #9BB8E8;
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5a7bc5;
+}
+
+/* Focus Styles for Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Button Reset */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Custom Utility Classes */
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-effect {
+    background: rgba(26, 21, 53, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(232, 230, 240, 0.1);
+  }
+
+  .glow {
+    box-shadow: 0 0 20px rgba(107, 141, 214, 0.4);
+  }
+
+  .glow-warm {
+    box-shadow: 0 0 30px rgba(232, 168, 124, 0.3);
+  }
+
+  .card-hover {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.3s ease;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 12px 35px rgba(107, 141, 214, 0.25);
+  }
+}
+
+/* Animation Classes */
+@layer components {
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+}
