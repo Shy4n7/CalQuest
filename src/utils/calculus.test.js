@@ -47,6 +47,7 @@ assertApprox(deriv, 2, 0.01);
 // Test invalid input for numericalDerivative
 assertNaN(numericalDerivative("not a function", 2), "numericalDerivative with string input");
 assertNaN(numericalDerivative(null, 2), "numericalDerivative with null input");
+assertNaN(numericalDerivative(() => { throw new Error(); }, 2), "numericalDerivative with throwing function");
 
 // Test integrate
 // Integral of 2x from 0 to 2 is [x^2] from 0 to 2 = 4
@@ -55,6 +56,7 @@ assertApprox(integral, 4, 0.01);
 
 // Test invalid input for integrate
 assertNaN(integrate("not a function", 0, 2), "integrate with string input");
+assertNaN(integrate(() => { throw new Error(); }, 0, 2), "integrate with throwing function");
 
 // Test approximateLimit
 // Limit of (x^2 - 1)/(x - 1) as x -> 1 is 2
@@ -64,6 +66,7 @@ assertApprox(limit, 2, 0.01);
 
 // Test invalid input for approximateLimit
 assertNaN(approximateLimit("not a function", 1), "approximateLimit with string input");
+assertNaN(approximateLimit(() => { throw new Error(); }, 1), "approximateLimit with throwing function");
 
 // Test areaUnderCurve
 // Area under 2x from 0 to 2 is 4
@@ -72,6 +75,7 @@ assertApprox(area, 4, 0.1); // Riemann sum might be less accurate
 
 // Test invalid input for areaUnderCurve
 assertNaN(areaUnderCurve("not a function", 0, 2), "areaUnderCurve with string input");
+assertNaN(areaUnderCurve(() => { throw new Error(); }, 0, 2), "areaUnderCurve with throwing function");
 
 // Test powerRuleDerivative
 // d/dx(3x^2) at x=2 -> 3*2*2^(2-1) = 12
@@ -90,5 +94,8 @@ assertApprox(tangent(3), 5, 0.001);
 // Test invalid input for getTangentLine
 const invalidTangent = getTangentLine(2, "not a function", functions.quadraticDerivative);
 assertNaN(invalidTangent(3), "getTangentLine with invalid f returns function returning NaN");
+
+const throwingTangent = getTangentLine(2, () => { throw new Error(); }, functions.quadraticDerivative);
+assertNaN(throwingTangent(3), "getTangentLine with throwing f returns function returning NaN");
 
 console.log('--- All Tests Passed ---');
