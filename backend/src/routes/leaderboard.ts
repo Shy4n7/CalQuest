@@ -63,6 +63,18 @@ router.get('/weekly', optionalAuth, async (req: any, res) => {
         weekStart.setDate(now.getDate() - diff);
         weekStart.setHours(0, 0, 0, 0);
 
+        // Try cache first
+        const cacheKey = `leaderboard:weekly:${weekStart.getTime()}`;
+        const cached = await cacheGet(cacheKey);
+
+        if (cached) {
+            const leaderboard = cached.map((user: any) => ({
+                ...user,
+                isCurrentUser: req.userId === user.userId,
+            }));
+            return res.json({ leaderboard, weekStart });
+        }
+
         // Get users who completed lessons this week
         const weeklyProgress = await prisma.lessonProgress.findMany({
             where: {
@@ -100,13 +112,13 @@ router.get('/weekly', optionalAuth, async (req: any, res) => {
         });
 
         // Combine and sort
-        const leaderboard = users
+        const leaderboardData = users
             .map(user => ({
+                userId: user.id,
                 username: user.username,
                 avatar: user.avatar,
                 level: user.level,
                 weeklyXP: userXPMap.get(user.id) || 0,
-                isCurrentUser: req.userId === user.id,
             }))
             .sort((a, b) => b.weeklyXP - a.weeklyXP)
             .slice(0, 100)
@@ -114,6 +126,14 @@ router.get('/weekly', optionalAuth, async (req: any, res) => {
                 rank: index + 1,
                 ...user,
             }));
+
+        // Cache for 5 minutes
+        await cacheSet(cacheKey, leaderboardData, 300);
+
+        const leaderboard = leaderboardData.map(user => ({
+            ...user,
+            isCurrentUser: req.userId === user.userId,
+        }));
 
         res.json({ leaderboard, weekStart });
     } catch (error) {
