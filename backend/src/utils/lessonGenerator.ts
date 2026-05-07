@@ -1,7 +1,7 @@
 import { Lesson } from '../types';
 
 // All 30 lessons for CalQuest
-export const LESSONS: Lesson[] = [
+const LESSONS: Lesson[] = [
     // ===== LIMITS MODULE (6 lessons) =====
     {
         id: 'limits_1',
@@ -713,13 +713,6 @@ export const LESSONS: Lesson[] = [
  */
 export const getLessonById = (lessonId: string): Lesson | undefined => {
     return LESSONS.find(lesson => lesson.id === lessonId);
-};
-
-/**
- * Get all lessons for a module
- */
-export const getLessonsByModule = (module: string): Lesson[] => {
-    return LESSONS.filter(lesson => lesson.module === module);
 };
 
 /**
