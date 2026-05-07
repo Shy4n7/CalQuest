@@ -6,8 +6,20 @@ export interface AuthRequest extends Request {
     user?: any;
 }
 
-const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || 'default-secret';
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'default-refresh-secret';
+const getSecret = (key: string, defaultVal: string): string => {
+    const value = process.env[key];
+    if (!value) {
+        if (process.env.NODE_ENV === 'production') {
+            throw new Error(`${key} is not defined in environment variables`);
+        }
+        console.warn(`Warning: ${key} is not defined, using default secret`);
+        return defaultVal;
+    }
+    return value;
+};
+
+const JWT_ACCESS_SECRET = getSecret('JWT_ACCESS_SECRET', 'default-secret');
+const JWT_REFRESH_SECRET = getSecret('JWT_REFRESH_SECRET', 'default-refresh-secret');
 
 export const generateAccessToken = (userId: string): string => {
     return jwt.sign({ userId }, JWT_ACCESS_SECRET, { expiresIn: '15m' });
