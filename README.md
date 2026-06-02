@@ -103,6 +103,54 @@ See the specification documents in the root directory:
 - `Calculus-App-Design-UI.md` - UI/UX specifications
 - `Calculus-App-Implementation.md` - Implementation guide
 
+## 🏗️ System Architecture
+
+### How the App Fits Together
+
+```mermaid
+graph LR
+    subgraph "You, the Learner"
+        A[Choose a Topic]
+        B[Answer Questions]
+        C[Earn Rewards]
+    end
+
+    subgraph "App Brain"
+        D[Pick the Right Lesson]
+        E[Check Your Answer]
+        F[Update Your Progress]
+    end
+
+    subgraph "Visual Helpers"
+        G[Draw Interactive Graph]
+        H[Animate the Math]
+    end
+
+    A -- lesson request --> D
+    D -- lesson content --> B
+    D -- graph needed --> G
+    G -- live graph --> B
+    G -- motion data --> H
+    H -- animated graph --> B
+    B -- your answer --> E
+    E -- result --> F
+    F -- new XP and level --> C
+```
+
+### How It Works
+
+| Step | What Happens |
+|------|--------------|
+| 1 | You open the app and pick a topic — like Derivatives or Integrals |
+| 2 | The app selects a lesson that matches your current level so it is never too easy or too hard |
+| 3 | An interactive graph appears and animates the math concept in real time as you adjust sliders |
+| 4 | You answer a question or complete a challenge based on what the graph is showing |
+| 5 | The app instantly checks your answer and explains what was right or wrong |
+| 6 | You earn XP points and your streak grows, just like in a language learning app |
+| 7 | Over time the app unlocks harder topics and real-world problems from physics and astrophysics |
+
+---
+
 ## 🤝 Contributing
 
 This is a personal learning project. Feel free to fork and customize!
