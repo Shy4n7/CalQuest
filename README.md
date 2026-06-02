@@ -1,19 +1,19 @@
-# 🧮 CalQuest - Interactive Calculus Learning App
+# CalQuest - Interactive Calculus Learning App
 
 **Master calculus through interactive visualizations and gamified learning!**
 
 CalQuest is a Duolingo-style educational app that teaches essential calculus concepts (derivatives, integrals, limits) through mind-blowing interactive visualizations and gamification.
 
-## ✨ Features
+## Features
 
-- 🎮 **Gamified Learning** - Streaks, XP, levels, and achievement badges
-- 📊 **Interactive Visualizations** - Beautiful Plotly.js graphs showing calculus concepts
-- 🎨 **Modern Dark UI** - Stunning dark mode interface with smooth animations
-- 🚀 **Progressive Learning** - From basic limits to astrophysics applications
-- 📱 **Responsive Design** - Works perfectly on mobile, tablet, and desktop
-- ♿ **Accessible** - WCAG 2.1 AA compliant
+- **Gamified Learning** - Streaks, XP, levels, and achievement badges
+- **Interactive Visualizations** - Beautiful Plotly.js graphs showing calculus concepts
+- **Modern Dark UI** - Stunning dark mode interface with smooth animations
+- **Progressive Learning** - From basic limits to astrophysics applications
+- **Responsive Design** - Works perfectly on mobile, tablet, and desktop
+- **Accessible** - WCAG 2.1 AA compliant
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **React 18** - Modern React with hooks
 - **Vite** - Lightning-fast build tool
@@ -23,7 +23,7 @@ CalQuest is a Duolingo-style educational app that teaches essential calculus con
 - **Zustand** - Lightweight state management
 - **Firebase** - Backend and authentication (optional)
 
-## 📦 Installation
+## Installation
 
 ```bash
 # Install dependencies
@@ -39,7 +39,7 @@ npm run build
 npm run preview
 ```
 
-## 🎯 Project Structure
+## Project Structure
 
 ```
 calquest/
@@ -64,7 +64,7 @@ calquest/
 └── tailwind.config.js
 ```
 
-## 🎨 Color Scheme
+## Color Scheme
 
 - **Primary**: `#3B82F6` (Bright Blue)
 - **Secondary**: `#10B981` (Emerald Green)
@@ -73,21 +73,21 @@ calquest/
 - **Success**: `#22C55E` (Green)
 - **Error**: `#EF4444` (Red)
 
-## 📚 Learning Modules
+## Learning Modules
 
-1. **Limits** 🔬 - Understanding approach & convergence
-2. **Derivatives** ⚡ - Slopes, velocity, acceleration
-3. **Integrals** 📊 - Area, volume, accumulation
-4. **Astrophysics Applications** 🌌 - Real-world physics problems
+1. **Limits** - Understanding approach & convergence
+2. **Derivatives** - Slopes, velocity, acceleration
+3. **Integrals** - Area, volume, accumulation
+4. **Astrophysics Applications** - Real-world physics problems
 
-## 🎮 Gamification Elements
+## Gamification Elements
 
-- **Streaks** 🔥 - Daily learning streaks
-- **XP System** ⭐ - Earn points for completing lessons
-- **Levels** 🎯 - Progress from Level 1 to 30
-- **Achievements** 🏆 - Unlock badges for milestones
+- **Streaks** - Daily learning streaks
+- **XP System** - Earn points for completing lessons
+- **Levels** - Progress from Level 1 to 30
+- **Achievements** - Unlock badges for milestones
 
-## 🚀 Next Steps
+## Next Steps
 
 - [ ] Add interactive visualizers (SlopeVisualizer, IntegralVisualizer, LimitVisualizer)
 - [ ] Create quiz system with multiple question types
@@ -96,14 +96,14 @@ calquest/
 - [ ] Add sound effects and celebrations
 - [ ] Create astrophysics applications module
 
-## 📖 Documentation
+## Documentation
 
 See the specification documents in the root directory:
 - `Calculus-App-Prompt.md` - Complete project vision
 - `Calculus-App-Design-UI.md` - UI/UX specifications
 - `Calculus-App-Implementation.md` - Implementation guide
 
-## 🏗️ System Architecture
+## System Architecture
 
 ### How the App Fits Together
 
@@ -151,14 +151,14 @@ graph LR
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 This is a personal learning project. Feel free to fork and customize!
 
-## 📄 License
+## License
 
 MIT License - Feel free to use this for your own learning!
 
 ---
 
-**Built with ❤️ for B.Sc. AI/ML students learning calculus for astrophysics**
+**Built for B.Sc. AI/ML students learning calculus for astrophysics**
